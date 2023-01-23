@@ -1,8 +1,8 @@
 package main
 
-import "github.com/bpoetzschke/tinygo-bostongo/example4"
+import "github.com/bpoetzschke/tinygo-bostongo/example2"
 
 func main() {
-	//example1.Run()
-	example4.Run()
+	example2.Run()
+	// example5.Run()
 }

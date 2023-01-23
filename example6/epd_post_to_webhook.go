@@ -1,4 +1,4 @@
-package exampleX
+package example6
 
 import (
 	"fmt"
@@ -6,11 +6,13 @@ import (
 	"machine"
 	"strings"
 	"time"
+
 	"tinygo.org/x/drivers/dht"
 	"tinygo.org/x/drivers/net"
 	"tinygo.org/x/drivers/net/http"
 	"tinygo.org/x/drivers/waveshare-epd/epd2in13x"
 	"tinygo.org/x/drivers/wifinina"
+	"tinygo.org/x/tinydraw"
 	"tinygo.org/x/tinyfont"
 	"tinygo.org/x/tinyfont/freesans"
 )
@@ -30,6 +32,7 @@ var (
 	lastButtonState = false
 	display         epd2in13x.Device
 	colorBlack      = color.RGBA{1, 1, 1, 255}
+	colorWhite      = color.RGBA{0, 0, 0, 255}
 	colored         = color.RGBA{255, 0, 0, 255}
 )
 
@@ -109,7 +112,7 @@ func setupDisplay() {
 	display.Configure(epd2in13x.Config{})
 }
 
-func exampleX() {
+func Run() {
 	waitSerial()
 
 	setup()
@@ -165,8 +168,10 @@ func displayDHTReading(temp int16, humidity uint16) {
 	display.ClearBuffer()
 	display.ClearDisplay()
 
+	tinydraw.FilledRectangle(&display, 10, 0, 30, 212, colored)
+
 	tinyfont.WriteLineRotated(&display, &freesans.Regular9pt7b, 50, 10, fmt.Sprintf("Temperature: %02d.%d°C", temp/10, temp%10), colorBlack, tinyfont.ROTATION_90)
-	tinyfont.WriteLineRotated(&display, &freesans.Regular9pt7b, 20, 10, fmt.Sprintf("Humidity: %02d.%d%%", humidity/10, humidity%10), colorBlack, tinyfont.ROTATION_90)
+	tinyfont.WriteLineRotated(&display, &freesans.Regular9pt7b, 20, 10, fmt.Sprintf("Humidity: %02d.%d%%", humidity/10, humidity%10), colorWhite, tinyfont.ROTATION_90)
 
 	display.Display()
 	display.WaitUntilIdle()
