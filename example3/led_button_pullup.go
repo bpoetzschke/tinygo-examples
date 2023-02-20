@@ -7,7 +7,8 @@ import (
 
 var (
 	input = machine.D2
-	led   = machine.D4
+	led   = machine.D13 // onboard LED
+	// led = machine.D4
 )
 
 func Run() {
