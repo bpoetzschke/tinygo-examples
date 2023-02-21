@@ -13,7 +13,7 @@ import (
 )
 
 var (
-	buffer [1024]byte
+	buffer [1120]byte
 
 	// these are the default pins for the Arduino Nano33 IoT.
 	spi = machine.NINA_SPI
