@@ -2,7 +2,6 @@ package example7
 
 import (
 	"fmt"
-	"image/color"
 	"machine"
 	"strings"
 	"time"
@@ -10,11 +9,7 @@ import (
 	"tinygo.org/x/drivers/dht"
 	"tinygo.org/x/drivers/net"
 	"tinygo.org/x/drivers/net/http"
-	"tinygo.org/x/drivers/waveshare-epd/epd2in13x"
 	"tinygo.org/x/drivers/wifinina"
-	"tinygo.org/x/tinydraw"
-	"tinygo.org/x/tinyfont"
-	"tinygo.org/x/tinyfont/freesans"
 )
 
 var (
@@ -30,10 +25,6 @@ var (
 	dhtInput        = machine.D3
 	led             = machine.D4
 	lastButtonState = false
-	display         epd2in13x.Device
-	colorBlack      = color.RGBA{1, 1, 1, 255}
-	colorWhite      = color.RGBA{0, 0, 0, 255}
-	colored         = color.RGBA{255, 0, 0, 255}
 )
 
 func setup() {
@@ -102,23 +93,13 @@ func connectToAP() {
 	println(ip.String())
 }
 
-func setupDisplay() {
-	machine.SPI0.Configure(machine.SPIConfig{
-		Frequency: 8000000,
-		Mode:      0,
-	})
-
-	display = epd2in13x.New(machine.SPI0, machine.D10, machine.D9, machine.D8, machine.D7)
-	display.Configure(epd2in13x.Config{})
-}
-
 func Run() {
 	waitSerial()
 
 	setup()
 	connectToAP()
 
-	setupDisplay()
+	//setupDisplay()
 
 	http.SetBuf(buffer[:])
 
@@ -138,7 +119,7 @@ func Run() {
 				if err == nil {
 					println(fmt.Sprintf("Temperature: %02d.%d°C, Humidity: %02d.%d%%", temp/10, temp%10, hum/10, hum%10))
 					postDHTReadingToWebhook(temp, hum)
-					displayDHTReading(temp, hum)
+					//displayDHTReading(temp, hum)
 				} else {
 					println(fmt.Sprintf("Could not take measurements from the sensor: %s", err.Error()))
 				}
@@ -161,19 +142,4 @@ func postDHTReadingToWebhook(temp int16, humidity uint16) {
 	}
 
 	println(fmt.Sprintf("Webhook response status code: %d\n", res.StatusCode))
-}
-
-func displayDHTReading(temp int16, humidity uint16) {
-
-	display.ClearBuffer()
-	display.ClearDisplay()
-
-	tinydraw.FilledRectangle(&display, 10, 0, 30, 212, colored)
-
-	tinyfont.WriteLineRotated(&display, &freesans.Regular9pt7b, 50, 10, fmt.Sprintf("Temperature: %02d.%d°C", temp/10, temp%10), colorBlack, tinyfont.ROTATION_90)
-	tinyfont.WriteLineRotated(&display, &freesans.Regular9pt7b, 20, 10, fmt.Sprintf("Humidity: %02d.%d%%", humidity/10, humidity%10), colorWhite, tinyfont.ROTATION_90)
-
-	display.Display()
-	display.WaitUntilIdle()
-
 }

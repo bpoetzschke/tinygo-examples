@@ -24,7 +24,7 @@ func Run() {
 
 	for {
 		adcReading := adcInput.Get()
-		voltage := adcReading / 20_000
+		voltage := float64(adcReading) / float64(20_000)Z
 
 		fmt.Printf("Voltage reading: %.2f\r\n", voltage)
 
