@@ -99,8 +99,6 @@ func Run() {
 	setup()
 	connectToAP()
 
-	//setupDisplay()
-
 	http.SetBuf(buffer[:])
 
 	// if onboard led is configured as output then the display does not work; D13 is SCK and LED!!!
@@ -119,7 +117,6 @@ func Run() {
 				if err == nil {
 					println(fmt.Sprintf("Temperature: %02d.%d°C, Humidity: %02d.%d%%", temp/10, temp%10, hum/10, hum%10))
 					postDHTReadingToWebhook(temp, hum)
-					//displayDHTReading(temp, hum)
 				} else {
 					println(fmt.Sprintf("Could not take measurements from the sensor: %s", err.Error()))
 				}

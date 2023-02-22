@@ -1,7 +1,7 @@
 package main
 
-import "github.com/bpoetzschke/tinygo-bostongo/example5"
+import "github.com/bpoetzschke/tinygo-examples/example1"
 
 func main() {
-	example5.Run()
+	example1.Run()
 }

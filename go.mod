@@ -1,4 +1,4 @@
-module github.com/bpoetzschke/tinygo-bostongo
+module github.com/bpoetzschke/tinygo-examples
 
 go 1.17
 

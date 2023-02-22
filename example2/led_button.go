@@ -16,6 +16,6 @@ func Run() {
 
 	for {
 		led.Set(!input.Get())
-		time.Sleep(time.Second)
+		time.Sleep(250 * time.Millisecond)
 	}
 }
