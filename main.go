@@ -1,7 +1,7 @@
 package main
 
-import "github.com/bpoetzschke/tinygo-examples/example1"
+import "github.com/bpoetzschke/tinygo-examples/example9"
 
 func main() {
-	example1.Run()
+	example9.Run()
 }

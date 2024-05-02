@@ -6,7 +6,8 @@ import (
 )
 
 var (
-	led = machine.D13 // onboard LED
+	//led = machine.D12 // onboard LED
+	led = machine.D3
 )
 
 func Run() {
@@ -15,10 +16,10 @@ func Run() {
 	for {
 		println("Led off")
 		led.Low()
-		time.Sleep(time.Second)
+		time.Sleep(500 * time.Millisecond)
 
 		println("Led on")
 		led.High()
-		time.Sleep(time.Second)
+		time.Sleep(1000 * time.Millisecond)
 	}
 }
