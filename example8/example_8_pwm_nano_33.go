@@ -1,4 +1,4 @@
-//go:build arduino-nano33
+//go:build arduino_nano33
 
 package example8
 

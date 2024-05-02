@@ -1,4 +1,4 @@
-//go:build avr && atmega328p
+//go:build arduino
 
 package example9
 

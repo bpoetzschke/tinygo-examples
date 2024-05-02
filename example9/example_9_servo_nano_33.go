@@ -1,4 +1,4 @@
-//go:build sam && atsamd21
+//go:build arduino_nano33
 
 package example9
 
